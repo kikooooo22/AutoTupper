@@ -11,7 +11,7 @@ import './App.css';
 function App() {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   
-  const [tupperK, setTupperK] = useState<string>("0");
+  const [tupperK, setTupperK] = useState<string>("");
   const [tupperW, setTupperW] = useState<number>(106);
   const [tupperH, setTupperH] = useState<number>(17);
 

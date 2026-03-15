@@ -120,7 +120,7 @@ export const TupperRenderer: React.FC<Props> = ({ k, width, height, onDecodeRequ
         overflow: 'auto',
         minHeight: '200px'
       }}>
-        {k === "0" ? (
+        {(!k || k === "0") ? (
           <p style={{ color: 'var(--text-muted)' }}>Generate or paste a Tupper constant to see it here.</p>
         ) : (
           <canvas ref={canvasRef} style={{ maxWidth: '100%', boxShadow: '0 0 10px rgba(102, 252, 241, 0.2)' }} />
