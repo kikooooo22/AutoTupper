@@ -129,7 +129,12 @@ export const TupperRenderer: React.FC<Props> = ({ k, width, height, onDecodeRequ
 
       <form onSubmit={handleDecodeSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
         
-        {/* Styled Modified Formula Above Output Input */}
+        {/* Full-width Decode button as separator */}
+        <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.7rem', fontSize: '1rem', letterSpacing: '0.5px' }}>
+          Decode And Render
+        </button>
+
+        {/* Styled Modified Formula Above K Input */}
         <div style={{ 
           fontFamily: "'Cambria Math', 'Times New Roman', serif", 
           fontSize: '1rem', 
@@ -180,9 +185,6 @@ export const TupperRenderer: React.FC<Props> = ({ k, width, height, onDecodeRequ
              <label>Height</label>
              <input type="number" placeholder="H" value={inputH} onChange={e => setInputH(e.target.value)} />
           </div>
-          <button type="submit" className="btn btn-primary" style={{ padding: '0.6rem 1.5rem', flexShrink: 0 }}>
-            Decode And Render
-          </button>
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.5rem' }}>

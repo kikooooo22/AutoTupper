@@ -114,21 +114,26 @@ function App() {
       
       {/* Info Modal */}
       {isInfoOpen && (
-        <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-          <div className="glass-panel" style={{ maxWidth: '600px', width: '100%', position: 'relative', maxHeight: '90vh', overflowY: 'auto' }}>
+        <div 
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.8)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}
+          onClick={() => setIsInfoOpen(false)}
+        >
+          <div className="glass-panel" style={{ maxWidth: '600px', width: '100%', position: 'relative', maxHeight: '90vh', overflowY: 'auto' }} onClick={e => e.stopPropagation()}>
             <button className="btn btn-icon" style={{ position: 'absolute', top: '1rem', right: '1rem' }} onClick={() => setIsInfoOpen(false)}>
               <X size={20} />
             </button>
-            <h2 style={{ marginBottom: '1rem', color: 'var(--accent-color)' }}>How AutoTupper Works</h2>
+            <h2 style={{ marginBottom: '1rem', color: 'var(--accent-color)', paddingRight: '2rem' }}>How AutoTupper Works</h2>
             <p style={{ marginBottom: '1rem' }}>
               Tupper's Self-Referential Formula is a mathematical equation that visually represents itself when graphed. By changing the enormous constant <b>k</b>, the formula can draw <i>any</i> possible monochrome image within its bounds.
             </p>
             <p style={{ marginBottom: '1.5rem' }}>
               This engine processes your uploaded images, applies a monochrome threshold, converts the pixel matrix to binary, and calculates the exact <b>k</b> value required for the Tupper Formula to draw your image.
             </p>
-            <div style={{ padding: '1.5rem', background: 'rgba(0,0,0,0.5)', borderRadius: 'var(--radius)', border: '1px dashed var(--panel-border)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem' }}>The Original Formula</span>
-              <FormulaDisplay height={17} />
+            <div style={{ padding: '1rem', background: 'rgba(0,0,0,0.5)', borderRadius: 'var(--radius)', border: '1px dashed var(--panel-border)', display: 'flex', flexDirection: 'column', alignItems: 'center', overflow: 'hidden' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '0.5rem' }}>The Original Formula</span>
+              <div style={{ width: '100%', overflowX: 'auto', fontSize: 'clamp(0.65rem, 2vw, 1rem)' }}>
+                <FormulaDisplay height={17} />
+              </div>
             </div>
           </div>
         </div>
@@ -164,16 +169,37 @@ function App() {
       </div>
 
       <div style={{ display: 'flex', flex: 1, position: 'relative', overflow: 'hidden' }}>
-        {/* Collapsible Sidebar */}
-        <div className="sidebar" style={{ 
+        {/* Sidebar backdrop (mobile) - click to close */}
+        {isSidebarOpen && (
+          <div 
+            onClick={() => setIsSidebarOpen(false)}
+            style={{ position: 'absolute', inset: 0, zIndex: 89, background: 'rgba(0,0,0,0.5)' }}
+          />
+        )}
+
+        {/* Collapsible Sidebar with swipe-to-close */}
+        <div 
+          className="sidebar" 
+          style={{ 
             position: 'absolute', 
             top: 0, left: 0, bottom: 0, 
             height: '100%',
             transform: isSidebarOpen ? 'translateX(0)' : 'translateX(-100%)',
             transition: 'transform 0.3s ease',
             zIndex: 90,
-            boxShadow: isSidebarOpen ? '5px 0 15px rgba(0,0,0,0.5)' : 'none'
-          }}>
+            boxShadow: isSidebarOpen ? '5px 0 15px rgba(0,0,0,0.5)' : 'none',
+            touchAction: 'pan-y'
+          }}
+          onTouchStart={(e) => {
+            const touch = e.touches[0];
+            (e.currentTarget as HTMLElement).dataset.touchStartX = touch.clientX.toString();
+          }}
+          onTouchEnd={(e) => {
+            const startX = parseFloat((e.currentTarget as HTMLElement).dataset.touchStartX || '0');
+            const endX = e.changedTouches[0].clientX;
+            if (startX - endX > 60) setIsSidebarOpen(false); // swipe left
+          }}
+        >
           <HistoryList onLoadItem={handleLoadItem} />
         </div>
 

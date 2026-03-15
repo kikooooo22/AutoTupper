@@ -119,6 +119,14 @@
   gap: 1.5rem;
 }
 
+/* Visibility utilities */
+.mobile-only {
+  display: none;
+}
+.desktop-only {
+  display: flex;
+}
+
 /* Responsive adjustments */
 @media (min-width: 1200px) {
   .image-editor-grid {
@@ -173,6 +181,14 @@
     display: flex !important;
     flex-direction: column !important;
     gap: 1rem;
+  }
+
+  /* Flip visibility utilities on mobile */
+  .mobile-only {
+    display: flex;
+  }
+  .desktop-only {
+    display: none !important;
   }
 }
 
