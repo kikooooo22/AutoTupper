@@ -1,0 +1,185 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(circle at 15% 50%, rgba(102, 252, 241, 0.08), transparent 30%),
+              radial-gradient(circle at 85% 30%, rgba(33, 150, 243, 0.08), transparent 30%);
+}
+
+.sidebar {
+  width: 320px;
+  min-width: 320px;
+  border-right: 1px solid var(--panel-border);
+  background: rgba(11, 12, 16, 0.7);
+  backdrop-filter: var(--backdrop-blur);
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.header-title-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Nav button label - hidden on very narrow screens */
+.nav-btn-text {
+  font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .nav-btn-text {
+    display: none;
+  }
+}
+
+.header-area h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--accent-color) 0%, #2196f3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+}
+
+.editor-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.renderer-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  text-align: center;
+  color: var(--text-muted);
+  border: 2px dashed var(--panel-border);
+  border-radius: var(--radius);
+  background: rgba(0,0,0,0.2);
+  gap: 1rem;
+}
+
+.main-grid-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.editor-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.renderer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Responsive adjustments */
+@media (min-width: 1200px) {
+  .image-editor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    align-items: start;
+    gap: 2rem;
+  }
+}
+
+/* Mobile / Portrait */
+@media (max-width: 768px) {
+  .app-container {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  /* Sidebar overlays full height on mobile */
+  .sidebar {
+    width: 90vw !important;
+    min-width: unset !important;
+    max-width: 340px;
+    height: 100% !important;
+    border-right: 1px solid var(--panel-border) !important;
+    border-bottom: none !important;
+  }
+
+  /* Allow section header to wrap on small screens */
+  .section-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* Reduce padding in main container */
+  .main-grid-layout {
+    gap: 1rem;
+  }
+
+  /* Glass panels get less padding */
+  .glass-panel {
+    padding: 1rem !important;
+  }
+
+  /* History list full height */
+  .history-list {
+    padding: 1rem;
+  }
+
+  /* Image editor grid always stacked on mobile */
+  .image-editor-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Tupper Output header - let buttons wrap */
+  .renderer-area .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
